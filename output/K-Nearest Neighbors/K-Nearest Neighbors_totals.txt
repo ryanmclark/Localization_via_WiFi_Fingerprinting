@@ -1,0 +1,8 @@
+K-Nearest Neighbors
+Model Timer: 10.43 seconds
+
+Totals Output:
+Mean Coordinate Error: 14.35 +/- 21.67 meters
+Standard Error: 17339.49 meters
+Building Percent Error: 0.54%
+Floor Percent Error: 24.66%
