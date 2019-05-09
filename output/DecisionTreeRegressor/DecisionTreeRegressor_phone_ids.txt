@@ -1,0 +1,74 @@
+DecisionTreeRegressor
+Model Timer: 9.26 seconds
+
+Totals Output:
+Mean Coordinate Error: 20.11 +/- 23.44 meters
+Standard Error: 25214.47 meters
+Building Percent Error: 2.16%
+Floor Percent Error: 37.62%
+
+Phone ID: 0
+Mean Coordinate Error: 25.99 +/- 37.07 meters
+Standard Error: 3792.97 meters
+Building Percent Error: 7.50%
+Floor Percent Error: 46.67%
+
+Phone ID: 13
+Mean Coordinate Error: 17.19 +/- 21.20 meters
+Standard Error: 7000.93 meters
+Building Percent Error: 1.08%
+Floor Percent Error: 30.89%
+
+Phone ID: 2
+Mean Coordinate Error: 16.72 +/- 13.50 meters
+Standard Error: 987.20 meters
+Building Percent Error: 1.92%
+Floor Percent Error: 32.69%
+
+Phone ID: 12
+Mean Coordinate Error: 19.04 +/- 15.87 meters
+Standard Error: 1444.54 meters
+Building Percent Error: 0.00%
+Floor Percent Error: 40.00%
+
+Phone ID: 20
+Mean Coordinate Error: 23.78 +/- 21.73 meters
+Standard Error: 5674.15 meters
+Building Percent Error: 1.88%
+Floor Percent Error: 47.89%
+
+Phone ID: 21
+Mean Coordinate Error: 24.64 +/- 23.51 meters
+Standard Error: 1670.55 meters
+Building Percent Error: 3.33%
+Floor Percent Error: 38.33%
+
+Phone ID: 4
+Mean Coordinate Error: 14.50 +/- 15.24 meters
+Standard Error: 1118.71 meters
+Building Percent Error: 1.45%
+Floor Percent Error: 24.64%
+
+Phone ID: 9
+Mean Coordinate Error: 18.86 +/- 27.83 meters
+Standard Error: 1664.42 meters
+Building Percent Error: 2.60%
+Floor Percent Error: 36.36%
+
+Phone ID: 15
+Mean Coordinate Error: 16.68 +/- 15.26 meters
+Standard Error: 636.59 meters
+Building Percent Error: 0.00%
+Floor Percent Error: 25.00%
+
+Phone ID: 5
+Mean Coordinate Error: 22.68 +/- 19.78 meters
+Standard Error: 413.54 meters
+Building Percent Error: 0.00%
+Floor Percent Error: 41.18%
+
+Phone ID: 14
+Mean Coordinate Error: 24.74 +/- 21.16 meters
+Standard Error: 810.86 meters
+Building Percent Error: 3.57%
+Floor Percent Error: 60.71%

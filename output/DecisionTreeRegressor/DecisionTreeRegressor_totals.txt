@@ -1,0 +1,8 @@
+DecisionTreeRegressor
+Model Timer: 1.27 seconds
+
+Totals Output:
+Mean Coordinate Error: 21.40 +/- 28.84 meters
+Standard Error: 27106.27 meters
+Building Percent Error: 2.97%
+Floor Percent Error: 37.89%

@@ -39,7 +39,8 @@ from scripts.plots import plot_pos_vs_time, plot_lat_vs_lon
 # Libraries
 from time import time
  # EXAMPLE - IMPORT MODELS SIMILARLY - CUSTOM OR PREMADE
-from sklearn.neighbors import KNeighborsRegressor
+#from sklearn.neighbors import KNeighborsRegressor
+from sklearn.tree import DecisionTreeRegressor
 from matplotlib.pyplot import close, ioff, ion
 from pandas import DataFrame
 
@@ -81,7 +82,7 @@ def run_model_phone_id(model_name, model, data, fig_trig=SAVE_FIGS,
     tbuild_missclass = tfloor_missclass = tstandard_error = 0
     subreports = list()    
 
-    fit = model.fit(x_train, y_train)
+    model.fit(x_train, y_train)
     
     # Loop through each phone_id, group them, compute and report errors.
     for phone_id, y_test_group in y_test.groupby("PHONEID", sort=False):
@@ -89,7 +90,7 @@ def run_model_phone_id(model_name, model, data, fig_trig=SAVE_FIGS,
         # Obtain respective data for the phone_id labels (y_test_group)
         x_test_group = x_test.iloc[y_test_group.index]
         
-        prediction = fit.predict(x_test_group)
+        prediction = model.predict(x_test_group)
         prediction = DataFrame(prediction, columns=y_test.columns)
         
         errors = compute_errors(prediction, y_test_group)
@@ -158,9 +159,9 @@ def run_model(model_name, model, data, rep_trig=SAVE_REPORT):
 
     x_train, y_train, x_test, y_test = data # Decompose tuple into datasets
 
-    fit = model.fit(x_train, y_train)
+    model.fit(x_train, y_train)
     
-    prediction = fit.predict(x_test)
+    prediction = model.predict(x_test)
     prediction = DataFrame(prediction, columns=y_test.columns)
     
     errors = compute_errors(prediction, y_test)
@@ -200,13 +201,16 @@ if __name__ == "__main__":
         
     ################## INSERT MODEL AND MODEL NAME HERE #######################
     
-    model_name = "K-Nearest Neighbors"
-    knn_model = KNeighborsRegressor(n_neighbors=1)
+    #model_name = "K-Nearest Neighbors"
+    #model = KNeighborsRegressor(n_neighbors=1)
     
-    #######3######### INSERT MODEL AND MODEL NAME HERE ########################
+    model_name = "DecisionTreeRegressor"
+    model = DecisionTreeRegressor()
+    
+    ################# INSERT MODEL AND MODEL NAME HERE ########################
 
-    report, prediction = run_model(model_name, knn_model, data)
-    prediction = run_model_phone_id(model_name, knn_model, data)
+    report, prediction = run_model(model_name, model, data)
+    prediction = run_model_phone_id(model_name, model, data)
     
     toc = time() # Report program performance timer
     print("Program Timer: %.2f seconds" % (toc-tic))
