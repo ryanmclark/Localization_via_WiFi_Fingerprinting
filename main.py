@@ -39,13 +39,17 @@ from scripts.plots import plot_pos_vs_time, plot_lat_vs_lon
 # Libraries
 from time import time
  # EXAMPLE - IMPORT MODELS SIMILARLY - CUSTOM OR PREMADE
-#from sklearn.neighbors import KNeighborsRegressor
-from sklearn.tree import DecisionTreeRegressor
+from sklearn.neighbors import KNeighborsRegressor, KNeighborsClassifier
+from sklearn.tree import DecisionTreeRegressor, DecisionTreeClassifier
+from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
 from matplotlib.pyplot import close, ioff, ion
 from pandas import DataFrame
+from numpy import hstack
 
 # Hyper-parameters
 N = 520 # Number of WAPS - CONSTANT
+QUANTITATIVE_COLUMNS = ['LONGITUDE', 'LATITUDE']
+CATEGORICAL_COLUMNS = ['FLOOR', 'BUILDINGID']
 # Used to remove columns where information is missing the validation data.
 DROP_COLUMNS = ["SPACEID" ,"RELATIVEPOSITION", "USERID"]
 SAVE_FIGS = True # Trigger to save/overwrite figures (saves 5 seconds if False)
@@ -53,7 +57,7 @@ SAVE_REPORT = True # Trigger to save/overwrite report
 PRINT_SUB = True # Trigger to print sub reports or not.
 DISPLAY_PLOTS = False # If true, the 20 figures will be created on screen.
 
-def run_model_phone_id(model_name, model, data, fig_trig=SAVE_FIGS, 
+def run_model_phone_id(model_name, model_regressor, model_classifier, data, fig_trig=SAVE_FIGS, 
                        rep_trig=SAVE_REPORT, print_trig=PRINT_SUB,
                        display=DISPLAY_PLOTS):
     '''
@@ -63,13 +67,14 @@ def run_model_phone_id(model_name, model, data, fig_trig=SAVE_FIGS,
     lat vs. long and the other is pos vs. timestamp. This may or may not save
     the data depending on the specified parameters.
     
-    Parameters: model_name : (str)
-                model      : (*) must have .fit and .predict class functions.
-                data       : (tuple) contains the 4 sets of data.
-                fig_trig   : (boolean) if true saves and overwrites figures.
-                rep_trig   : (boolean) if true saves and overwrites report.
-                print_trig : (boolean) if true prints sub_reports to console.
-                display    : (boolean) if true displays figs (not recommended)
+    Parameters: model_name       : (str)
+                model_regressor  : (*) must have .fit and .predict class functions.
+                model_classifier : (*) must have .fit and .predict class functions.
+                data             : (tuple) contains the 4 sets of data.
+                fig_trig         : (boolean) if true saves and overwrites figures.
+                rep_trig         : (boolean) if true saves and overwrites report.
+                print_trig       : (boolean) if true prints sub_reports to console.
+                display          : (boolean) if true displays figs (not recommended)
                 
     Returns:    report     : (str) contains all error information
     '''
@@ -82,7 +87,9 @@ def run_model_phone_id(model_name, model, data, fig_trig=SAVE_FIGS,
     tbuild_missclass = tfloor_missclass = tstandard_error = 0
     subreports = list()    
 
-    model.fit(x_train, y_train)
+    model_regressor.fit(x_train, y_train[QUANTITATIVE_COLUMNS])
+    model_classifier.fit(x_train, y_train[CATEGORICAL_COLUMNS])
+    
     
     # Loop through each phone_id, group them, compute and report errors.
     for phone_id, y_test_group in y_test.groupby("PHONEID", sort=False):
@@ -90,8 +97,10 @@ def run_model_phone_id(model_name, model, data, fig_trig=SAVE_FIGS,
         # Obtain respective data for the phone_id labels (y_test_group)
         x_test_group = x_test.iloc[y_test_group.index]
         
-        prediction = model.predict(x_test_group)
-        prediction = DataFrame(prediction, columns=y_test.columns)
+        prediction_regressor = model_regressor.predict(x_test_group)
+        prediction_classifier = model_classifier.predict(x_test_group)
+        prediction = hstack((prediction_regressor, prediction_classifier))
+        prediction = DataFrame(prediction, columns=QUANTITATIVE_COLUMNS+CATEGORICAL_COLUMNS)
         
         errors = compute_errors(prediction, y_test_group)
                 
@@ -141,28 +150,32 @@ def run_model_phone_id(model_name, model, data, fig_trig=SAVE_FIGS,
     return report
     
 
-def run_model(model_name, model, data, rep_trig=SAVE_REPORT):
+def run_model(model_name, model_regressor, model_classifier, data, rep_trig=SAVE_REPORT):
     '''
     This function will run the model in its entirety to evaluate preformance.
     It is ~6 seconds faster than the other function, so it is useful for
     querying for optimal parameters.
     
-    Parameters: model_name : (str)
-                model      : (*) must have .fit and .predict class functions.
-                data       : (tuple) contains the 4 sets of data.
-                rep_trig   : (boolean) if true saves and overwrites report.
+    Parameters: model_name       : (str)
+                model_regressor  : (*) must have .fit and .predict class functions.
+                model_classifier : (*) must have .fit and .predict class functions.
+                data             : (tuple) contains the 4 sets of data.
+                rep_trig         : (boolean) if true saves and overwrites report.
                 
-    Returns:    report     : (str) contains all error information
-                prediction : (DataFrame) the predicted output for each sample.
+    Returns:    report           : (str) contains all error information
+                prediction       : (DataFrame) the predicted output for each sample.
     '''
     tic_model = time() # Start model performance timer
 
     x_train, y_train, x_test, y_test = data # Decompose tuple into datasets
 
-    model.fit(x_train, y_train)
+    model_regressor.fit(x_train, y_train[QUANTITATIVE_COLUMNS])
+    model_classifier.fit(x_train, y_train[CATEGORICAL_COLUMNS])
     
-    prediction = model.predict(x_test)
-    prediction = DataFrame(prediction, columns=y_test.columns)
+    prediction_regressor = model_regressor.predict(x_test)
+    prediction_classifier = model_classifier.predict(x_test)
+    prediction = hstack((prediction_regressor, prediction_classifier))
+    prediction = DataFrame(prediction, columns=QUANTITATIVE_COLUMNS+CATEGORICAL_COLUMNS)
     
     errors = compute_errors(prediction, y_test)
     
@@ -201,16 +214,22 @@ if __name__ == "__main__":
         
     ################## INSERT MODEL AND MODEL NAME HERE #######################
     
-    #model_name = "K-Nearest Neighbors"
-    #model = KNeighborsRegressor(n_neighbors=1)
+    model_name = "KNN"
+    model_regressor = KNeighborsRegressor(n_neighbors=3)
+    model_classifier = KNeighborsClassifier(n_neighbors=1)
     
-    model_name = "DecisionTreeRegressor"
-    model = DecisionTreeRegressor()
+    #model_name = "DecisionTree"
+    #model_regressor  = DecisionTreeRegressor()
+    #model_classifier = DecisionTreeClassifier()
     
+    #model_name = "RandomForest"
+    #model_regressor = RandomForestRegressor(n_estimators=100)
+    #model_classifier = RandomForestClassifier(n_estimators=100)
+
     ################# INSERT MODEL AND MODEL NAME HERE ########################
 
-    report, prediction = run_model(model_name, model, data)
-    prediction = run_model_phone_id(model_name, model, data)
+    report, prediction = run_model(model_name, model_regressor, model_classifier, data)
+    prediction = run_model_phone_id(model_name, model_regressor, model_classifier, data)
     
     toc = time() # Report program performance timer
     print("Program Timer: %.2f seconds" % (toc-tic))

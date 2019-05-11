@@ -1,0 +1,8 @@
+KNN
+Model Timer: 18.81 seconds
+
+Totals Output:
+Mean Coordinate Error: 13.53 +/- 17.64 meters
+Standard Error: 16432.08 meters
+Building Percent Error: 0.54%
+Floor Percent Error: 24.66%
