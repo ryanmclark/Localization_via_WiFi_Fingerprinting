@@ -49,6 +49,7 @@ from numpy import hstack
 
 # Hyper-parameters
 N = 520 # Number of WAPS - CONSTANT
+NO_SIGNAL_VALUE = -105
 QUANTITATIVE_COLUMNS = ['LONGITUDE', 'LATITUDE']
 CATEGORICAL_COLUMNS = ['FLOOR', 'BUILDINGID']
 # Used to remove columns where information is missing the validation data.
@@ -82,6 +83,8 @@ def run_model_phone_id(model_name, model_regressor, model_classifier, data, fig_
     tic_model = time() # Start model performance timer
 
     x_train, y_train, x_test, y_test = data # Decompose tuple into datasets
+    x_train[x_train==100] = NO_SIGNAL_VALUE
+    x_test[x_test==100] = NO_SIGNAL_VALUE
 
     # Initialize total error tracks to report at end of function
     tcoords_error = list()
@@ -169,6 +172,8 @@ def run_model(model_name, model_regressor, model_classifier, data, rep_trig=SAVE
     tic_model = time() # Start model performance timer
 
     x_train, y_train, x_test, y_test = data # Decompose tuple into datasets
+    x_train[x_train==100] = NO_SIGNAL_VALUE
+    x_test[x_test==100] = NO_SIGNAL_VALUE
 
     model_regressor.fit(x_train, y_train[QUANTITATIVE_COLUMNS])
     model_classifier.fit(x_train, y_train[CATEGORICAL_COLUMNS])

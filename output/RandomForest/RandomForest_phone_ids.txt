@@ -1,74 +1,74 @@
 RandomForest
-Model Timer: 56.66 seconds
+Model Timer: 56.91 seconds
 
 Totals Output:
-Mean Coordinate Error: 13.90 +/- 14.09 meters
-Standard Error: 16040.26 meters
+Mean Coordinate Error: 12.51 +/- 13.92 meters
+Standard Error: 14364.80 meters
 Building Percent Error: 0.09%
-Floor Percent Error: 12.42%
+Floor Percent Error: 9.36%
 
 Phone ID: 0
-Mean Coordinate Error: 15.22 +/- 16.31 meters
-Standard Error: 1937.92 meters
+Mean Coordinate Error: 15.96 +/- 17.25 meters
+Standard Error: 1990.90 meters
 Building Percent Error: 0.00%
-Floor Percent Error: 23.33%
+Floor Percent Error: 15.83%
 
 Phone ID: 13
-Mean Coordinate Error: 12.93 +/- 14.45 meters
-Standard Error: 4903.70 meters
+Mean Coordinate Error: 10.82 +/- 13.91 meters
+Standard Error: 4083.55 meters
 Building Percent Error: 0.00%
-Floor Percent Error: 8.94%
+Floor Percent Error: 6.23%
 
 Phone ID: 2
-Mean Coordinate Error: 15.50 +/- 16.17 meters
-Standard Error: 849.75 meters
+Mean Coordinate Error: 15.81 +/- 17.21 meters
+Standard Error: 854.23 meters
 Building Percent Error: 0.00%
-Floor Percent Error: 21.15%
+Floor Percent Error: 15.38%
 
 Phone ID: 12
-Mean Coordinate Error: 13.43 +/- 10.21 meters
-Standard Error: 971.92 meters
+Mean Coordinate Error: 11.96 +/- 9.13 meters
+Standard Error: 857.23 meters
 Building Percent Error: 0.00%
-Floor Percent Error: 11.43%
+Floor Percent Error: 7.14%
 
 Phone ID: 20
-Mean Coordinate Error: 16.13 +/- 12.44 meters
-Standard Error: 3582.45 meters
+Mean Coordinate Error: 13.88 +/- 10.91 meters
+Standard Error: 3101.38 meters
 Building Percent Error: 0.47%
 Floor Percent Error: 11.27%
 
 Phone ID: 21
-Mean Coordinate Error: 13.41 +/- 11.30 meters
-Standard Error: 812.83 meters
+Mean Coordinate Error: 13.41 +/- 13.15 meters
+Standard Error: 812.73 meters
 Building Percent Error: 0.00%
 Floor Percent Error: 3.33%
 
 Phone ID: 4
-Mean Coordinate Error: 10.61 +/- 11.57 meters
-Standard Error: 763.87 meters
+Mean Coordinate Error: 9.87 +/- 11.45 meters
+Standard Error: 705.35 meters
 Building Percent Error: 0.00%
-Floor Percent Error: 11.59%
+Floor Percent Error: 8.70%
 
 Phone ID: 9
-Mean Coordinate Error: 9.47 +/- 9.71 meters
-Standard Error: 757.39 meters
+Mean Coordinate Error: 7.99 +/- 9.54 meters
+Standard Error: 639.41 meters
 Building Percent Error: 0.00%
-Floor Percent Error: 9.09%
+Floor Percent Error: 7.79%
 
 Phone ID: 15
-Mean Coordinate Error: 11.46 +/- 7.07 meters
-Standard Error: 428.65 meters
+Mean Coordinate Error: 9.87 +/- 8.06 meters
+Standard Error: 367.45 meters
 Building Percent Error: 0.00%
-Floor Percent Error: 11.11%
+Floor Percent Error: 8.33%
 
 Phone ID: 5
-Mean Coordinate Error: 12.46 +/- 13.04 meters
-Standard Error: 231.74 meters
+Mean Coordinate Error: 13.19 +/- 13.85 meters
+Standard Error: 240.26 meters
 Building Percent Error: 0.00%
-Floor Percent Error: 29.41%
+Floor Percent Error: 23.53%
 
 Phone ID: 14
-Mean Coordinate Error: 27.43 +/- 26.48 meters
-Standard Error: 800.03 meters
+Mean Coordinate Error: 24.87 +/- 26.30 meters
+Standard Error: 712.32 meters
 Building Percent Error: 0.00%
-Floor Percent Error: 28.57%
+Floor Percent Error: 14.29%
