@@ -39,6 +39,7 @@ from scripts.plots import plot_pos_vs_time, plot_lat_vs_lon
 # Libraries
 from time import time
  # EXAMPLE - IMPORT MODELS SIMILARLY - CUSTOM OR PREMADE
+from scripts.neuralnet import NeuralNetworkRegressor
 from sklearn.neighbors import KNeighborsRegressor, KNeighborsClassifier
 from sklearn.tree import DecisionTreeRegressor, DecisionTreeClassifier
 from sklearn.ensemble import RandomForestRegressor, RandomForestClassifier
@@ -226,6 +227,10 @@ if __name__ == "__main__":
     #model_regressor = RandomForestRegressor(n_estimators=100)
     #model_classifier = RandomForestClassifier(n_estimators=100)
 
+    #model_name = "NeuralNetworkRegressor"
+    #model_regressor  = NeuralNetworkRegressor()
+    #model_classifier = DecisionTreeClassifier() #dummy
+    
     ################# INSERT MODEL AND MODEL NAME HERE ########################
 
     report, prediction = run_model(model_name, model_regressor, model_classifier, data)
