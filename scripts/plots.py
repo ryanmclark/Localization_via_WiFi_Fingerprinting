@@ -3,7 +3,7 @@
 """
 Created on Mon May  6 22:32:21 2019
 
-@author: Ryan Clark
+@authors: Ryan Clark, Matt Hong, So Sosaki
 
 File Description:
 The plots file is used to handle all of the plotting. There is a file the plots
@@ -40,11 +40,14 @@ def plot_pos_vs_time(prediction, truth, phone_id, model_name):
     for i, lat_long in enumerate(['LONGITUDE', 'LATITUDE']):
         y_predict = prediction[lat_long] - truth[lat_long].values[0]
         y_truth = truth[lat_long] - truth[lat_long].values[0]
+        
         ax[i].plot(x, y_predict, label="Prediction")
         ax[i].plot(x, y_truth, label="Ground Truth")
+        
         ax[i].set_title("%s vs. timestamp" % lat_long.lower())
         ax[i].set_ylabel("%s (meters)" % lat_long.lower())
         ax[i].set_xlabel("timestamp (number)")
+        
         ax[i].legend()
         ax[i].grid()
         ax[i].set_xlim([min(x), max(x)])
@@ -71,11 +74,12 @@ def plot_lat_vs_lon(prediction, truth, phone_id, model_name):
     ax.scatter(prediction["LONGITUDE"], prediction["LATITUDE"],
                label="Prediction")
     
-    ax.scatter(truth["LONGITUDE"], truth["LATITUDE"], label="Ground Truth")
+    ax.scatter(truth["LONGITUDE"], truth["LATITUDE"], label="Ground Truth",s=7)
     
     ax.set_title("latitude vs. longitude")
     ax.set_ylabel("latitude (meters)")
     ax.set_xlabel("longitude (meters)")
+    
     ax.legend()
     ax.grid()
 

@@ -3,31 +3,40 @@
 """
 Created on Mon May  6 10:37:16 2019
 
-@author: Ryan Clark
+@authors: Ryan Clark, Matt Hong, So Sosaki
 
 File Description:
-The utility file used to load data, format results, and save results.
+The utility file used to load and preprocess data, format results, and 
+save results.
 """
 
 # Libraries
 from time import time
 from os.path import exists, join
 from os import mkdir
-from numpy import mean, std
-from pandas import read_csv
+from numpy import mean, std, sum, min, delete
+from pandas import read_csv, concat
 
-def load_data(train_fname, val_fname, N, DROP_COLUMNS=None):
+# Hyper-Pareameters / CONSTANTS
+SRC_NULL = 100 # Original Null Value
+DST_NULL = -98 # Changed Null Value
+MIN_WAPS = 9 # Minimum number of WAPS per sample.
+
+def load_data(train_fname, val_fname, N, drop_columns=None, dst_null=DST_NULL, 
+              drop_val=False):
     '''
-    Loads the training and validation data into a dataframe and splits it into
-    x and y subsets on feature "N" for the data and labels respectively.
-    "DROP_COLUMNS" are also used to remove columns that do not provide much 
-    use. Lastly, this function assumes that the data is stored in a "data/" 
-    directory.
+    Loads both the training and validation data (if drop_val is False),
+    concatenates the datasets into one dataset. Splits the dataset into data
+    and labels (X and Y). Replaces Null values and sets all lower null values
+    to the replaced value. Normalizes data between 0 and 1 where 0 is weak
+    intensity and 1 is strong intensity.
     
     Parameters: train_fname  : (str) file name of training data - *.csv
                 val_fname    : (str) file name of validation data - *.csv
                 N            : (int) number of features
-                DROP_COLUMNS : (list) column names to be removed from data
+                drop_columns : (list) column names to be removed from data
+                dst_null     : (int) the value to change all null values to
+                drop_val     : (boolean) if true then drops validation data
                 
     Returns   : x_train      : (Dataframe) training data
                 y_train      : (Dataframe) training labels
@@ -35,24 +44,57 @@ def load_data(train_fname, val_fname, N, DROP_COLUMNS=None):
                 y_test       : (Dataframe) test labels
     '''
     tic = time() # Start function performance timer
+
+    if drop_val:
+        data = read_csv("data/" + train_fname)
+    else:
+        training_data = read_csv("data/" + train_fname)    
+        validation_data = read_csv("data/" + val_fname)
+        data = concat((training_data, validation_data), ignore_index=True)
+
+    if drop_columns: # Drop useless columns if there are any specified.
+        data.drop(columns=drop_columns, inplace=True)
+        
+    # Split data from labels
+    X = data.iloc[:, :N]
+    Y = data.iloc[:, N:]
     
-    training_data = read_csv("data/" + train_fname)
-    validation_data = read_csv("data/" + val_fname)
+    # Change null value to new value and set all lower values to it.
+    X.replace(SRC_NULL, dst_null, inplace=True)
+    X[X < dst_null] = dst_null
     
-    if DROP_COLUMNS: # Drop useless columns if there are any specified.
-        training_data.drop(columns=DROP_COLUMNS, inplace=True)
-        validation_data.drop(columns=DROP_COLUMNS, inplace=True)
-    
-    x_train = training_data.iloc[:, :N]
-    y_train = training_data.iloc[:, N:]
-    
-    x_test = validation_data.iloc[:, :N]
-    y_test = validation_data.iloc[:, N:]
+    # Remove samples that have less than MIN_WAPS active WAPs    
+    # Normalize data between 0 and 1 where 1 is strong signal and 0 is null
+    X /= min(X)
+    X = 1 - X
     
     toc = time() # Report function performance timer
     print("Data Load Timer: %.2f seconds" % (toc-tic))
     
-    return x_train, y_train, x_test, y_test
+    return X, Y
+
+def filter_out_low_WAPS(data, labels, num_samples=MIN_WAPS):
+    '''
+    Removes samples from the data that do not contain at least MIN_WAPS of 
+    non-null intensities.
+    
+    Parameters: data        : (ndarray) 2D array for WAP intensities
+                labels      : (ndarray) 2D array for labels
+                num_samples : (int) the mim required number of non-null values
+                
+    Returns:    new_data    : (ndarray) 2D array for WAP intensities
+                new_labels  : (ndarray) 2D array for labels
+    '''
+    drop_rows = list()
+    for i, x in enumerate(data):
+        count = sum(x != DST_NULL)
+        if count < num_samples:
+            drop_rows.append(i)
+            
+    new_data = delete(data, drop_rows, axis=0)
+    new_labels = delete(labels, drop_rows, axis=0)
+        
+    return new_data, new_labels
 
 def save_fig(fig, model_name, phone_id, plot_type):
     '''
@@ -96,10 +138,10 @@ def create_subreport(errors, M, phone_id=None):
                 
     Returns:    subreport  : (str)
     '''
-    build_missclass, floor_missclass, coords_error, standard_error = errors
+    build_missclass, floor_missclass, coords_err, std_err, coor_pr_err = errors
     
-    mean_c = mean(coords_error)
-    std_c = std(coords_error)
+    mean_c = mean(coords_err)
+    std_c = std(coords_err)
     
     build_error = build_missclass / M * 100 # Percent Error
     floor_error = floor_missclass / M * 100 # Percent Error
@@ -109,11 +151,16 @@ def create_subreport(errors, M, phone_id=None):
     else:
         str1 = "Totals Output:"
     str2 = "Mean Coordinate Error: %.2f +/- %.2f meters" % (mean_c, std_c)
-    str3 = "Standard Error: %.2f meters" % standard_error
+    str3 = "Standard Error: %.2f meters" % std_err
     str4 = "Building Percent Error: %.2f%%" % build_error
     str5 = "Floor Percent Error: %.2f%%" % floor_error
     
-    subreport = '\n'.join([str1, str2, str3, str4, str5])
+    if coor_pr_err != "N/A":
+        str6 = "Prob that Coordinate Error Less than 10m: %.2f%%" %coor_pr_err    
+    else:
+        str6 = ""
+    
+    subreport = '\n'.join([str1, str2, str3, str4, str5, str6])
     
     return subreport
     

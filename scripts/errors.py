@@ -3,7 +3,7 @@
 """
 Created on Mon May  6 22:17:15 2019
 
-@author: Ryan Clark
+@authors: Ryan Clark, Matt Hong, So Sosaki
 
 File Description:
 The errors file is used to calculate the various types of errors that are used
@@ -14,16 +14,19 @@ error defined by the creators of the dataset for the IPIN2015 competition. In
 this competition building missclassifications were penalized by 50 meters each 
 and floor missclassifications were penatlized by 4 meters each. The Standard
 Error is given by the pentalties multiplied by the number of missclassifcations
-plus the Localization Error. The main function here is compute_errors while
+plus the Localization Error. Finally there is a coordinate probability error
+that calculated the probability of being under 10 meters.
+The main function here is compute_errors while
 everything else is a helper function.
 """
 
 #Libraries
 from numpy import sqrt, square, sum
 
-# Hyper-parameters
+# Hyper-parameters / CONSTANTS
 BP = 50 # Default Building Penalty
 FP = 4 # Default Floor Penalty
+COORDS_PROB = 10 # meters
 
 def localizaion_error(prediction, truth):
     '''
@@ -58,7 +61,8 @@ def number_missclassified(prediction, truth, column_name):
 def compute_errors(prediction, truth, building_penalty=BP, floor_penalty=FP):
     '''
     Computes the missclassification errors, localization error, and standard
-    error. For me detail, see the File Description.
+    error and coordiante error probability for being under 10 meters.
+    For more detail, see the File Description.
     
     Parameters: prediction       : (Dataframe)
                 truth            : (Dataframe)
@@ -76,6 +80,10 @@ def compute_errors(prediction, truth, building_penalty=BP, floor_penalty=FP):
     standard_error = (building_penalty * build_missclass + floor_penalty *
                       floor_missclass + sum(coords_error))
     
-    errors = (build_missclass, floor_missclass, coords_error, standard_error)
+    coords_error_prob = (coords_error[coords_error < COORDS_PROB].shape[0] / 
+                         coords_error.shape[0] * 100)
+    
+    errors = (build_missclass, floor_missclass, coords_error, standard_error, 
+              coords_error_prob)
                          
     return errors
