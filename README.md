@@ -19,32 +19,36 @@ There are also plots for each phone id for latitude vs. timestamp, longitude vs.
 
 ## Current Results:
 K-Nearest Neighbors
-Model Timer: 30.61 seconds
-Mean Coordinate Error: 1.66 +/- 5.05 meters
-Standard Error: 6580.56 meters
-Building Percent Error: 0.00%
-Floor Percent Error: 0.36%
+Model Timer: 28.87 seconds
+Mean Coordinate Error: 1.78 +/- 9.37 meters
+Standard Error: 7334.52 meters
+Building Percent Error: 0.10%
+Floor Percent Error: 0.18%
+Prob that Coordinate Error Less than 10m: 95.04%
 
 Random Forest Regressor
-Model Timer: 166.61 seconds
-Mean Coordinate Error: 4.19 +/- 5.71 meters
-Standard Error: 16551.58 meters
-Building Percent Error: 0.00%
-Floor Percent Error: 0.64%
+Model Timer: 114.46 seconds
+Mean Coordinate Error: 4.14 +/- 7.18 meters
+Standard Error: 16961.51 meters
+Building Percent Error: 0.20%
+Floor Percent Error: 0.35%
+Prob that Coordinate Error Less than 10m: 91.52%
 
 Decision Tree
-Model Timer: 4.38 seconds
-Mean Coordinate Error: 5.14 +/- 11.37 meters
-Standard Error: 22818.53 meters
-Building Percent Error: 0.29%
-Floor Percent Error: 3.56%
+Model Timer: 3.87 seconds
+Mean Coordinate Error: 4.44 +/- 9.81 meters
+Standard Error: 18777.29 meters
+Building Percent Error: 0.33%
+Floor Percent Error: 2.68%
+Prob that Coordinate Error Less than 10m: 85.76%
 
 Support Vector Machine
-Model Timer: 12.08 seconds
-Mean Coordinate Error: 42.08 +/- 25.79 meters
-Standard Error: 165315.59 meters
-Building Percent Error: 0.00%
-Floor Percent Error: 0.89%
+Model Timer: 8.07 seconds
+Mean Coordinate Error: 57.19 +/- 28.53 meters
+Standard Error: 228617.45 meters
+Building Percent Error: 0.20%
+Floor Percent Error: 0.98%
+Prob that Coordinate Error Less than 10m: 2.11%
 
 ## File Descriptions:
 This is just a brief overview. A more detailed explination is provided in each of the file's descriptions in the header.
