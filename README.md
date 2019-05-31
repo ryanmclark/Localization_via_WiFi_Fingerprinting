@@ -12,11 +12,11 @@ Building Error: sum of all missclassified building samples over the total sample
 Floor Error: sum of all missclassified floor samples over the total sample count * 100 (percent)  
 Mean Coordinate Error: mean euclidean error from estimated latitude and longitude against the true latitude and longitude.  
 Standard Error: sum of BuildingPenalty*BuildingError + FloorPenalty*FloorError + Coordinate Error where the BuildingPenalty is 50 and the FloorPenalty is 4.  
-< br />
+
 Note that is possible to have a correct floor but an incorrect building.  
-< br />
+
 There are also plots for each phone id for latitude vs. timestamp, longitude vs. timestamp, and latitude vs. longitude for prediction against ground truth.  
-< br />
+
 ## Current Results:  
 K-Nearest Neighbors  
 Model Timer: 28.87 seconds  
@@ -25,7 +25,7 @@ Standard Error: 7334.52 meters
 Building Percent Error: 0.10%  
 Floor Percent Error: 0.18%  
 Prob that Coordinate Error Less than 10m: 95.04%  
-< br />
+
 Random Forest Regressor  
 Model Timer: 114.46 seconds  
 Mean Coordinate Error: 4.14 +/- 7.18 meters  
@@ -33,7 +33,7 @@ Standard Error: 16961.51 meters
 Building Percent Error: 0.20%  
 Floor Percent Error: 0.35%  
 Prob that Coordinate Error Less than 10m: 91.52%  
-< br />
+
 Decision Tree  
 Model Timer: 3.87 seconds  
 Mean Coordinate Error: 4.44 +/- 9.81 meters  
@@ -41,7 +41,7 @@ Standard Error: 18777.29 meters
 Building Percent Error: 0.33%  
 Floor Percent Error: 2.68%  
 Prob that Coordinate Error Less than 10m: 85.76%  
-< br />
+
 Support Vector Machine  
 Model Timer: 8.07 seconds  
 Mean Coordinate Error: 57.19 +/- 28.53 meters  
@@ -49,7 +49,7 @@ Standard Error: 228617.45 meters
 Building Percent Error: 0.20%  
 Floor Percent Error: 0.98%  
 Prob that Coordinate Error Less than 10m: 2.11%  
-< br />
+
 ## File Descriptions:
 This is just a brief overview. A more detailed explination is provided in each of the file's descriptions in the header.
 
@@ -82,7 +82,7 @@ In here are a few plots generated during the parameter estimation process. They 
 
 ## Requirements
 Python Version==3.7.1  
-< br />
+
 matplotlib==2.2.3  
 numpy==1.15.4  
 pandas==0.23.4  
