@@ -18,37 +18,37 @@ Note that is possible to have a correct floor but an incorrect building.
 There are also plots for each phone id for latitude vs. timestamp, longitude vs. timestamp, and latitude vs. longitude for prediction against ground truth.  
 
 ## Current Results:  
-K-Nearest Neighbors  
-Model Timer: 28.87 seconds  
-Mean Coordinate Error: 1.78 +/- 9.37 meters  
-Standard Error: 7334.52 meters  
-Building Percent Error: 0.10%  
-Floor Percent Error: 0.18%  
-Prob that Coordinate Error Less than 10m: 95.04%  
+K-Nearest Neighbors
+Model Timer: 29.35 seconds
+Mean Coordinate Error: 1.28 +/- 7.95 meters
+Standard Error: 5307.65 meters
+Building Percent Error: 0.21%
+Floor Percent Error: 0.24%
+Prob that Coordinate Error Less than 10m: 97.30%
 
-Random Forest Regressor  
-Model Timer: 114.46 seconds  
-Mean Coordinate Error: 4.14 +/- 7.18 meters  
-Standard Error: 16961.51 meters  
-Building Percent Error: 0.20%  
-Floor Percent Error: 0.35%  
-Prob that Coordinate Error Less than 10m: 91.52%  
+Random Forest Regressor
+Model Timer: 106.05 seconds
+Mean Coordinate Error: 4.09 +/- 8.52 meters
+Standard Error: 16242.91 meters
+Building Percent Error: 0.29%
+Floor Percent Error: 0.52%
+Prob that Coordinate Error Less than 10m: 92.72%
 
-Decision Tree  
-Model Timer: 3.87 seconds  
-Mean Coordinate Error: 4.44 +/- 9.81 meters  
-Standard Error: 18777.29 meters  
-Building Percent Error: 0.33%  
-Floor Percent Error: 2.68%  
-Prob that Coordinate Error Less than 10m: 85.76%  
+Decision Tree
+Model Timer: 3.70 seconds
+Mean Coordinate Error: 4.65 +/- 11.55 meters
+Standard Error: 18969.19 meters
+Building Percent Error: 0.34%
+Floor Percent Error: 3.69%
+Prob that Coordinate Error Less than 10m: 87.36%
 
-Support Vector Machine  
-Model Timer: 8.07 seconds  
-Mean Coordinate Error: 57.19 +/- 28.53 meters  
-Standard Error: 228617.45 meters  
-Building Percent Error: 0.20%  
-Floor Percent Error: 0.98%  
-Prob that Coordinate Error Less than 10m: 2.11%  
+Support Vector Machine
+Model Timer: 7.58 seconds
+Mean Coordinate Error: 45.03 +/- 24.09 meters
+Standard Error: 172698.51 meters
+Building Percent Error: 0.29%
+Floor Percent Error: 0.81%
+Prob that Coordinate Error Less than 10m: 3.61%
 
 ## File Descriptions:
 This is just a brief overview. A more detailed explination is provided in each of the file's descriptions in the header.

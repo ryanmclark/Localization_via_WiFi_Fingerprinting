@@ -55,7 +55,7 @@ def load_data(train_fname, val_fname, N, drop_columns=None, dst_null=DST_NULL,
     if drop_columns: # Drop useless columns if there are any specified.
         data.drop(columns=drop_columns, inplace=True)
         
-    data = data[data.PHONEID != 17]    
+    data = data[data.PHONEID != 17] # Phone 17s data is clearly corrupted. 
     # Split data from labels
     X = data.iloc[:, :N]
     Y = data.iloc[:, N:]
