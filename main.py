@@ -59,9 +59,9 @@ CATEGORICAL_COLUMNS = ['FLOOR', 'BUILDINGID'] # Classification Columns
 DROP_VAL = True # if True, drops the validation dataset which may be corrupted
 # Used to remove columns where information is missing the validation data.
 DROP_COLUMNS =["SPACEID" ,"RELATIVEPOSITION", "USERID"]
-SAVE_FIGS = True # Trigger to save/overwrite figures(saves 5 seconds if False)
-SAVE_REPORT = True # Trigger to save/overwrite report
-PRINT_SUB = True # Trigger to print sub reports or not.
+SAVE_FIGS = False # Trigger to save/overwrite figures(saves 5 seconds if False)
+SAVE_REPORT = False # Trigger to save/overwrite report
+PRINT_SUB = False # Trigger to print sub reports or not.
 DISPLAY_PLOTS = False # If true, the 20 figures will be created on screen.
 
 
@@ -239,29 +239,29 @@ if __name__ == "__main__":
     x_train, x_test = threshold_variance(x_train_o, x_test_o, thresh=0.00001)
     data_in =  (x_train, x_test, y_train, y_test)
     knn_errors, knn_prediction = run_model(model_name, clf, regr, data_in)
-    knn_report = run_model_phone_id(model_name, clf, regr, data_in)
+    #knn_report = run_model_phone_id(model_name, clf, regr, data_in)
     
     # Decision Tree with PCA
     model_name, clf, regr= load_Decision_Tree()
     x_train, x_test = pca(x_train_o, x_test_o, perc_of_var=0.95)
     data_in =  (x_train, x_test, y_train, y_test)
     dt_errors, dt_prediction = run_model(model_name, clf, regr, data_in)
-    dt_report = run_model_phone_id(model_name, clf, regr, data_in)
+    #dt_report = run_model_phone_id(model_name, clf, regr, data_in)
 
     # Random Forest with PCA
     model_name, clf, regr= load_Random_Forest()
     x_train, x_test = pca(x_train_o, x_test_o, perc_of_var=0.95)
     data_in =  (x_train, x_test, y_train, y_test)
     rf_errors, rf_prediction = run_model(model_name, clf, regr, data_in)
-    rf_report = run_model_phone_id(model_name, clf, regr, data_in)
+    #rf_report = run_model_phone_id(model_name, clf, regr, data_in)
     
     # Support Vector Machine with PCA
     model_name, clf, regr = load_SVM()
     x_train, x_test = pca(x_train_o, x_test_o, perc_of_var=0.95)
     data_in =  (x_train, x_test, y_train, y_test)
     svm_errors, svm_prediction = run_model(model_name, clf, regr, data_in)
-    svm_report = run_model_phone_id(model_name, clf, regr, data_in)
-
+    #svm_report = run_model_phone_id(model_name, clf, regr, data_in)
+    
     ################# INSERT MODEL AND MODEL NAME HERE ########################
     
     toc = time() # Report program performance timer

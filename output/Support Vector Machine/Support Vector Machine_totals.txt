@@ -1,9 +1,9 @@
 Support Vector Machine
-Model Timer: 8.07 seconds
+Model Timer: 7.58 seconds
 
 Totals Output:
-Mean Coordinate Error: 57.19 +/- 28.53 meters
-Standard Error: 228617.45 meters
-Building Percent Error: 0.20%
-Floor Percent Error: 0.98%
-Prob that Coordinate Error Less than 10m: 2.11%
+Mean Coordinate Error: 45.03 +/- 24.09 meters
+Standard Error: 172698.51 meters
+Building Percent Error: 0.29%
+Floor Percent Error: 0.81%
+Prob that Coordinate Error Less than 10m: 3.61%

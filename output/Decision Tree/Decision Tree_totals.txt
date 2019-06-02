@@ -1,9 +1,9 @@
 Decision Tree
-Model Timer: 3.87 seconds
+Model Timer: 3.70 seconds
 
 Totals Output:
-Mean Coordinate Error: 4.44 +/- 9.81 meters
-Standard Error: 18777.29 meters
-Building Percent Error: 0.33%
-Floor Percent Error: 2.68%
-Prob that Coordinate Error Less than 10m: 85.76%
+Mean Coordinate Error: 4.65 +/- 11.55 meters
+Standard Error: 18969.19 meters
+Building Percent Error: 0.34%
+Floor Percent Error: 3.69%
+Prob that Coordinate Error Less than 10m: 87.36%
